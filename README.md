@@ -34,3 +34,10 @@ is fine here because the input is bounded by the 0-65535 port space.
 - `compact_ports` parses dash ranges. A backwards range like `"82-80"` raises
   rather than being silently reversed — one clear interpretation.
 - Empty input (empty list or empty string) returns an empty string.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
